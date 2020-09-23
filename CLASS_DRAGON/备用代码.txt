@@ -1,0 +1,64 @@
+#============================class2备用代码=====================================
+    1.添加移动计时器，设置初始速度为0，并且绑定方法(方法需要自己创建)                               复制到setupUI()中
+        self.move = QTimer() 
+        self.move.timeout.connect(self.horizontalMove)
+        self.moveSpeed =0
+        self.move.start(15)
+
+    2.判断键盘按键是否是手指抬起                                                                                                          复制到def keyPressEvent(self,event)中
+        if  not event.isAutoRepeat(): 
+            print(event.text())  
+
+===========================class4备用代码===============================
+
+     1.添加跳跃的速度，以及有关的两个计时器并绑定方法                                                                                                             复制到setupUI()中
+        self.verticalSpeed = 5 
+        self.jump = QTimer()  
+        self.jump.timeout.connect(self.jumpMove)   
+        self.land = QTimer()
+        self.land.timeout.connect(self.landMove)
+    def jumpMove(self): 
+        pass
+    def landMove(self):
+        pass
+
+
+====================class5备用代码========================================
+    1.循环添加5只小怪和对应的移动计时器，并且添加每个小怪移动计时器对应的移动函数           复制到setupUI()中
+        self.ghost ={}  
+        self.ghostTimer={}  
+        for x in range(5):   
+            self.addGhost(x)    
+    def addGhost(self,index):   
+        self.ghost[index] = PyQt5_Qlabel(self,1000+index*100,415,45,50)
+        self.playGif(self.ghost[index],"ghost.gif")
+        self.ghost[index].show()
+        self.ghostTimer[index] =QTimer()
+        self.ghostTimer[index].timeout.connect(lambda:self.ghostMove(index))
+        self.ghostTimer[index].start(15)
+
+
+===============================class7备用代码====================
+    1.添加小恐龙面向右时的子弹以及子弹的移动计时器           复制到setupUI()中
+        self.bullet ={}  
+        self.bulletTimer = {}  
+        self.bulletSpeed =6 
+        self.bulletNumber =0 
+    def addBullet(self,index,speed):
+        # 在小恐龙右边添加子弹   
+        self.bullet[index]  = PyQt5_Qlabel(self,self.dragon.x()+85,self.dragon.y()+30,30,30)  
+        self.bullet[index].setBackground("bullet_right.png")
+        self.bullet[index].show()
+        self.bulletNumber+=1
+        self.bulletTimer[index] =QTimer()                    
+        self.bulletTimer[index].timeout.connect(lambda:self.bulletMove(index,speed)) 
+        self.bulletTimer[index].start(15) 
+    def bulletMove(self,index,speed): 
+        self.bullet[index].move(self.bullet[index].x()+speed,self.bullet[index].y()) 
+
+    =========================class8备用代码===============================
+    1. 如果子弹到达边界清除掉该子弹          
+        # 复制到def bulletMove(self,index,speed)中
+        if self.bullet[index].x()>1000 or self.bullet[index].x()<0:
+            self.bulletTimer[index].stop()
+            self.bullet[index].deleteLater()

@@ -1,0 +1,45 @@
+==================================class1=========================================
+九只地鼠的坐标：
+   [132,160], [319,160], [515,165], [100,250], [320,250], [520,250], [95,347], [320,352], [540,354] 
+
+==================================class2=========================================
+添加地鼠的label组件：
+   self.name = PyQt5_Qlabel(self,self.listXY[x][0],self.listXY[x][1],122,122)
+
+==================================class3=========================================
+添加计时器组件，并绑定计时器事件：
+   self.timer=QTimer()
+   self.timer.start(1000)
+   self.timer.timeout.connect(self.timeOut)
+
+==================================class5=========================================
+添加木槌，并设置隐藏：
+   self.hammer = PyQt5_Qlabel(self,172,160,98,77)
+   self.hammer.setBackground("hammer.png")
+   self.hammer.setVisible(False)
+
+移动木槌组件：
+   self.hammer.move(self.listXY[number][0]+40,self.listXY[number][1])
+
+==================================class6=========================================
+弹框并设置弹框信息：
+   QMessageBox.information(self,"得分","本次得分为:"+str(self.score))
+
+==================================class7=========================================
+添加在界面上显示时间和得分的label，并设置样式：
+   self.timeLabel = PyQt5_Qlabel(self,280,160,100,20)        
+   self.timeLabel.setFont(QFont("手札体-简",16))       
+   self.timeLabel.setTextColor("white")
+   self.timeLabel.setText("时间：%d"%self.finalTime)               
+   self.scoreLabel = PyQt5_Qlabel(self,380,160,100,20)      
+   self.scoreLabel.setFont(QFont("手札体-简",16))
+   self.scoreLabel.setTextColor("white")
+   self.scoreLabel.setText("得分：%d"%self.score) 
+
+==================================class8=========================================
+随机显示兔子或者仓鼠：
+   if random.randint(0,2) == 0:
+         self.hamsters[index][0].setBackground("rabbit.png")
+         self.animalType[self.hamsters[index][0]] = 0
+   else:
+         self.animalType[self.hamsters[index][0]] = 1
